@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
-            $table->enum('role',['Admin','User'])->default('User');
+            $table->enum('role',[User::ROLE_ADMIN,User::ROLE_USER])->default('User');
             $table->enum('status',['Active','Inactive'])->default('Active');
             $table->rememberToken();
             $table->timestamps();
