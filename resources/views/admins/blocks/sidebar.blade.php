@@ -34,26 +34,26 @@
                                 </a>
                             </li>
                             <li>
-                                <a class='tp-link' href='{{route('admins.users.index')}}'>
+                                <a class='tp-link' href='{{route('admins.dashboard')}}'>
                                     <i data-feather="users"></i>
                                     <span> Quản lý tài khoản </span>
                                 </a>
                             </li>
                             <li class="menu-title">Cửa hàng</li>
                             <li>
-                                <a class='tp-link' href='{{route('admins.categories.index')}}'>
+                                <a class='tp-link' href='{{route('admins.dashboard')}}'>
                                     <i data-feather="align-justify"></i>
                                     <span> Danh mục sản phẩm </span>
                                 </a>
                             </li>
                             <li>
-                                <a class='tp-link' href='{{route('admins.products.index')}}'>
+                                <a class='tp-link' href='{{route('admins.dashboard')}}'>
                                     <i data-feather="package"></i>
                                     <span> Sản phẩm </span>
                                 </a>
                             </li>
                             <li>
-                                <a class='tp-link' href='{{route('admins.orders.index')}}'>
+                                <a class='tp-link' href='{{route('admins.dashboard')}}'>
                                     <i data-feather="shopping-bag"></i>
                                     <span> Đơn hàng </span>
                                 </a>
