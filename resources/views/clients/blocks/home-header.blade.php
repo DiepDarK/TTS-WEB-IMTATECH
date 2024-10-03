@@ -6,19 +6,19 @@
                         <div class="col-lg-12">
                             <div class="transparent-header_nav position-relative">
                                 <div class="header-logo_area">
-                                    <a href="{{ route('index') }}">
+                                    <a href="">
                                         <img src="{{ asset('assets/client/images/menu/logo/1.png') }}" alt="Header Logo">
                                     </a>
                                 </div>
                                 <div class="main-menu_area d-none d-lg-block">
                                     <nav class="main-nav d-flex justify-content-center">
                                         <ul>
-                                            <li><a href="{{ route('index') }}">Home</a></li>
-                                            <li><a href="{{ route('shop') }}">Shop</a></li>
+                                            <li><a href="">Home</a></li>
+                                            <li><a href="}">Shop</a></li>
                                             <li><a href="contact-us.html">Page</a></li>
                                             <li><a href="contact-us.html">Blog</a></li>
-                                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
-                                            <li><a href="{{ route('about') }}">About Us</a></li>
+                                            <li><a href="">Contact Us</a></li>
+                                            <li><a href="">About Us</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -30,7 +30,7 @@
                                             </a>
                                         </li>
                                         <li class="minicart-wrap">
-                                            <a href="{{route('cart.list')}}" class="minicart-btn">
+                                            <a href="" class="minicart-btn">
                                                 <div class="minicart-count_area">
                                                     <span class="item-count">{{ session('cart') ? count(session('cart')) : '0'}}</span>
                                                     <i class="ion-bag"></i>
@@ -73,12 +73,12 @@
                                         <div class="main-menu_area">
                                             <nav class="main-nav d-flex justify-content-center">
                                                 <ul>
-                                                    <li><a href="{{ route('index') }}">Home</a></li>
-                                            <li><a href="{{ route('shop') }}">Shop</a></li>
+                                                    <li><a href="#">Home</a></li>
+                                            <li><a href="#">Shop</a></li>
                                             <li><a href="contact-us.html">Page</a></li>
                                             <li><a href="contact-us.html">Blog</a></li>
-                                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
-                                            <li><a href="{{ route('about') }}">About Us</a></li>
+                                            <li><a href="#">Contact Us</a></li>
+                                            <li><a href="#">About Us</a></li>
                                                 </ul>
                                             </nav>
                                         </div>
@@ -93,7 +93,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="minicart-wrap">
-                                                    <a href="{{route('cart.list')}}" class="minicart-btn">
+                                                    <a href="" class="minicart-btn">
                                                         <div class="minicart-count_area">
                                                             <span class="item-count">{{ session('cart') ? count(session('cart')) : '0'}}</span>
                                                             <i class="ion-bag"></i>

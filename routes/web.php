@@ -34,7 +34,7 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
         Route::prefix('users')
             ->as('users.')
             ->group(function () {
-                Route::get('/',                [AdminUserController::class, 'index'])->name('index');
+                Route::get('/index',                [AdminUserController::class, 'index'])->name('index');
                 Route::get('/create',          [AdminUserController::class, 'create'])->name('create');
                 Route::post('/store',          [AdminUserController::class, 'store'])->name('store');
                 Route::get('/show/{id}',       [AdminUserController::class, 'show'])->name('show');
@@ -45,7 +45,7 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
         Route::prefix('categories')
             ->as('categories.')
             ->group(function () {
-                Route::get('/',                [AdminCategoryController::class, 'index'])->name('index');
+                Route::get('/index',                [AdminCategoryController::class, 'index'])->name('index');
                 Route::get('/create',          [AdminCategoryController::class, 'create'])->name('create');
                 Route::post('/store',          [AdminCategoryController::class, 'store'])->name('store');
                 Route::get('/show/{id}',       [AdminCategoryController::class, 'show'])->name('show');
@@ -56,7 +56,7 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
         Route::prefix('banners')
             ->as('banners.')
             ->group(function () {
-                Route::get('/',                [AdminBannerController::class, 'index'])->name('index');
+                Route::get('/index',                [AdminBannerController::class, 'index'])->name('index');
                 Route::get('/create',          [AdminBannerController::class, 'create'])->name('create');
                 Route::post('/store',          [AdminBannerController::class, 'store'])->name('store');
                 Route::get('/show/{id}',       [AdminBannerController::class, 'show'])->name('show');

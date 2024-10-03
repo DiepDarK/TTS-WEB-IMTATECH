@@ -41,7 +41,7 @@
                             </li>
                             <li class="menu-title">Cửa hàng</li>
                             <li>
-                                <a class='tp-link' href='{{route('admins.dashboard')}}'>
+                                <a class='tp-link' href='{{route('admins.categories.index')}}'>
                                     <i data-feather="align-justify"></i>
                                     <span> Danh mục sản phẩm </span>
                                 </a>

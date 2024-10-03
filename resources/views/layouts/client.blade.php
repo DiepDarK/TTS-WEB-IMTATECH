@@ -51,13 +51,13 @@
 
         <!-- Loading Area End Here -->
 
-        @if (Route::is('/'))
+        @if (url()->current() == url(''))
             @include('clients.blocks.home-header')
         @else
             @include('clients.blocks.header')
         @endif
 
-        @if (Route::is('/'))
+        @if (url()->current() == url(''))
             @include('clients.blocks.slide')
         @endif
 
