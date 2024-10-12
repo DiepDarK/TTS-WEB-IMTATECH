@@ -34,7 +34,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-12 mb--20">
-                                    <label>Password</label>
+                                    <label>Password*</label>
                                     <input id="password" type="password" @error('password') is-invalid @enderror"
                                         name="password" required autocomplete="current-password">
 

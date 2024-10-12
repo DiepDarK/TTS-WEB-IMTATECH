@@ -32,7 +32,8 @@
                                         <li class="minicart-wrap">
                                             <a href="" class="minicart-btn">
                                                 <div class="minicart-count_area">
-                                                    <span class="item-count">{{ session('cart') ? count(session('cart')) : '0'}}</span>
+                                                    <span
+                                                        class="item-count">{{ session('cart') ? count(session('cart')) : '0' }}</span>
                                                     <i class="ion-bag"></i>
                                                 </div>
                                             </a>
@@ -74,11 +75,11 @@
                                             <nav class="main-nav d-flex justify-content-center">
                                                 <ul>
                                                     <li><a href="#">Home</a></li>
-                                            <li><a href="#">Shop</a></li>
-                                            <li><a href="contact-us.html">Page</a></li>
-                                            <li><a href="contact-us.html">Blog</a></li>
-                                            <li><a href="#">Contact Us</a></li>
-                                            <li><a href="#">About Us</a></li>
+                                                    <li><a href="#">Shop</a></li>
+                                                    <li><a href="contact-us.html">Page</a></li>
+                                                    <li><a href="contact-us.html">Blog</a></li>
+                                                    <li><a href="#">Contact Us</a></li>
+                                                    <li><a href="#">About Us</a></li>
                                                 </ul>
                                             </nav>
                                         </div>
@@ -95,7 +96,8 @@
                                                 <li class="minicart-wrap">
                                                     <a href="" class="minicart-btn">
                                                         <div class="minicart-count_area">
-                                                            <span class="item-count">{{ session('cart') ? count(session('cart')) : '0'}}</span>
+                                                            <span
+                                                                class="item-count">{{ session('cart') ? count(session('cart')) : '0' }}</span>
                                                             <i class="ion-bag"></i>
                                                         </div>
                                                     </a>
@@ -106,8 +108,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="d-none d-lg-inline-block">
-                                                    <a href="#offcanvasMenu"
-                                                        class="menu-btn toolbar-btn color--white">
+                                                    <a href="#offcanvasMenu" class="menu-btn toolbar-btn color--white">
                                                         <i class="ion-android-menu"></i>
                                                     </a>
                                                 </li>
@@ -492,33 +493,40 @@
                                 alt="Munoz's Offcanvas Logo">
                         </a>
                     </div>
-                    <div class="short-desc">
-                        <p>We are a team of designers and developers that create high quality HTML Template &
-                            Woocommerce,
-                            Shopify Themes.
-                        </p>
-                    </div>
-                    <div class="offcanvas-component first-child">
-                        <span class="offcanvas-component_title">Currency</span>
-                        <ul class="offcanvas-component_menu">
-                            <li><a href="javascript:void(0)">EUR</a></li>
-                            <li><a href="javascript:void(0)">GBP</a></li>
-                            <li class="active"><a href="javascript:void(0)">USD</a></li>
-                        </ul>
-                    </div>
-                    <div class="offcanvas-component">
-                        <span class="offcanvas-component_title">Language</span>
-                        <ul class="offcanvas-component_menu">
-                            <li class="active"><a href="javascript:void(0)">English</a></li>
-                            <li><a href="javascript:void(0)">French</a></li>
-                        </ul>
-                    </div>
                     <div class="offcanvas-component">
                         <span class="offcanvas-component_title">My Account</span>
+                        <hr>
                         <ul class="offcanvas-component_menu">
-                            <li><a href="{{ route('register')}}">Register</a></li>
-                            <li><a href="{{ route('login')}}">Login</a></li>
-                            <li><a href="{{ route('logout')}}">Logout</a></li>
+                            @guest
+                                @if (Route::has('login'))
+                                    <li><a href="{{ route('login') }}">Login</a></li>
+                                @endif
+
+                                @if (Route::has('register'))
+                                    <li><a href="{{ route('register') }}">Register</a></li>
+                                @endif
+                            @else
+                                <li>
+                                    <a href="#">
+                                        {{ Auth::user()->name }}
+                                    </a>
+                                </li>
+                                <li> <a href="#">View profile</a></li>
+                                @if (Auth::check() && Auth::user()->role === 'Admin')
+                                    <li><a href="{{ route('admins.dashboard') }}">Admin</a></li>
+                                @endif
+                                <li><a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @endguest
+
                         </ul>
                     </div>
                     <div class="offcanvas-inner-social_link">

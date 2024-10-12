@@ -34,7 +34,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class='tp-link' href='{{route('admins.dashboard')}}'>
+                                <a class='tp-link' href='{{route('admins.users.index')}}'>
                                     <i data-feather="users"></i>
                                     <span> Quản lý tài khoản </span>
                                 </a>
