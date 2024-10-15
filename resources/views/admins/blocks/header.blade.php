@@ -163,7 +163,7 @@
                                     </div>
         
                                     <!-- item-->
-                                    <a class='dropdown-item notify-item' href='{{route('admins.dashboard')}}'>
+                                    <a class='dropdown-item notify-item' href='{{route('index')}}'>
                                         <i class="mdi mdi-account-circle-outline fs-16 align-middle"></i>
                                         <span>Quay lại trang chủ LANDDN</span>
                                     </a>

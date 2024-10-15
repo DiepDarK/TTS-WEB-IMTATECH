@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="slide-item bg-2 animation-style-01">
+        <div class="slide-item bg-{{2}} animation-style-01">
             <div class="slider-progress"></div>
             <div class="container">
                 <div class="slide-content">
