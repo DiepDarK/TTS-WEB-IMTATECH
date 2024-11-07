@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminBannerController;
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,5 +64,16 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::get('/{id}/edit',       [AdminBannerController::class, 'edit'])->name('edit');
                 Route::put('/{id}/update',     [AdminBannerController::class, 'update'])->name('update');
                 Route::delete('/{id}/destroy', [AdminBannerController::class, 'destroy'])->name('destroy');
+            });
+        Route::prefix('products')
+            ->as('products.')
+            ->group(function () {
+                Route::get('/index',           [AdminProductController::class, 'index'])->name('index');
+                Route::get('/create',          [AdminProductController::class, 'create'])->name('create');
+                Route::post('/store',          [AdminProductController::class, 'store'])->name('store');
+                Route::get('/show/{id}',       [AdminProductController::class, 'show'])->name('show');
+                Route::get('/{id}/edit',       [AdminProductController::class, 'edit'])->name('edit');
+                Route::put('/{id}/update',     [AdminProductController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [AdminProductController::class, 'destroy'])->name('destroy');
             });
     });

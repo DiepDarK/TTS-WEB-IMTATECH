@@ -26,7 +26,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-                <div class="col-xl-12">
+                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h4 class="card-title mb-0 align-content-center">Banner slider index</h4>

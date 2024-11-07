@@ -43,7 +43,7 @@
                             <li>
                                 <a class='tp-link' href='{{route('admins.categories.index')}}'>
                                     <i data-feather="align-justify"></i>
-                                    <span> Danh mục sản phẩm </span>
+                                    <span> Danh mục</span>
                                 </a>
                             </li>
                             <li>
@@ -53,7 +53,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class='tp-link' href='{{route('admins.dashboard')}}'>
+                                <a class='tp-link' href='{{route('admins.products.index')}}'>
                                     <i data-feather="package"></i>
                                     <span> Sản phẩm </span>
                                 </a>
@@ -62,6 +62,12 @@
                                 <a class='tp-link' href='{{route('admins.dashboard')}}'>
                                     <i data-feather="shopping-bag"></i>
                                     <span> Đơn hàng </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class='tp-link' href='{{route('admins.dashboard')}}'>
+                                    <i data-feather="message-square"></i>
+                                    <span> Bình luận  </span>
                                 </a>
                             </li>
                         </ul>
