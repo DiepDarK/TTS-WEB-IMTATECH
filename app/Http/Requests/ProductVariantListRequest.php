@@ -11,7 +11,7 @@ class ProductVariantListRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class ProductVariantListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" => 'required|string|max:255'
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'name.required' => "Không được bỏ trống tên danh mục",
+            'name.string' => "Tên danh mục sai định dạng",
+            'name.max:255' => "Tên danh mục quá dài",
         ];
     }
 }

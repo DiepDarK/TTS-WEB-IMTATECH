@@ -16,6 +16,7 @@ class AdminBannerController extends Controller
         $title = "Quản lí Banner";
         $listBanner = Banner::all();
         $listPosition = ['index','big','small'];
+        // dd($listBanner);
         return view('admins.banners.index',compact('title','listBanner','listPosition'));
     }
 

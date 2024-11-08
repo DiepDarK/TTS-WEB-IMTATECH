@@ -136,9 +136,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                     <div class="col-lg-8">
                                         <div class="mb-3">
                                             <label for="" class="form-label">Tùy chỉnh riêng:</label>

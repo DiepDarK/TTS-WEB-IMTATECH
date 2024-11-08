@@ -59,6 +59,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a class='tp-link' href='{{route('admins.variantLists.index')}}'>
+                                    <i data-feather="copy"></i>
+                                    <span> Mẫu biến thể </span>
+                                </a>
+                            </li>
+                            <li>
                                 <a class='tp-link' href='{{route('admins.dashboard')}}'>
                                     <i data-feather="shopping-bag"></i>
                                     <span> Đơn hàng </span>

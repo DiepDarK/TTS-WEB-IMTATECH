@@ -33,11 +33,17 @@ class Product extends Model
         'is_sale' => 'boolean',
         'is_show_home' => 'boolean',
     ];
-    
-    public function category(){
+
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
-    public function variant(){
+    public function variants()
+    {
         return $this->hasMany(Variant::class);
+    }
+    public function variantList()
+    {
+        return $this->belongsToMany(VariantList::class, 'variants');
     }
 }

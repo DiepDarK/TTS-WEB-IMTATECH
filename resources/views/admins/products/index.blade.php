@@ -46,6 +46,7 @@
                                             <th scope="col">Số lượng</th>
                                             <th scope="col">Trạng thái</th>
                                             <th scope="col">Sửa</th>
+                                            <th scope="col">Biến thể</th>
                                             <th scope="col">Xóa</th>
                                         </tr>
                                     </thead>
@@ -65,7 +66,11 @@
                                                     {{ $item->status == true ? 'Hiện' : 'Ẩn' }}</td>
                                                 <td>
                                                     <a href="{{ route('admins.products.edit', $item->id) }}"><i
-                                                            class="mdi mdi-pencil bg-success text-muted fs-18 rounded-2 border p-1 me-1"></i></a>
+                                                            class="mdi mdi-pencil bg-primary text-muted fs-18 rounded-2 border p-1 me-1"></i></a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('admins.variants.show', $item->id) }}"><i
+                                                            class="mdi mdi-eye bg-success text-muted fs-18 rounded-2 border p-1 me-1"></i></a>
                                                 </td>
                                                 <td>
                                                     <form action="{{ route('admins.products.destroy', $item->id) }}"
@@ -74,7 +79,7 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="border-0 bg-white"><i
-                                                                class="mdi mdi-delete bg-warning text-muted fs-18 rounded-2 border p-1"></i></button>
+                                                                class="mdi mdi-delete bg-danger text-muted fs-18 rounded-2 border p-1"></i></button>
                                                     </form>
                                                 </td>
                                             </tr>

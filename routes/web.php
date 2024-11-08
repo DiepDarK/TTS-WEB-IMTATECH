@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminBannerController;
-use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\Admin\AdminVariantController;
+use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminVariantListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,5 +77,27 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::get('/{id}/edit',       [AdminProductController::class, 'edit'])->name('edit');
                 Route::put('/{id}/update',     [AdminProductController::class, 'update'])->name('update');
                 Route::delete('/{id}/destroy', [AdminProductController::class, 'destroy'])->name('destroy');
+            });
+        Route::prefix('variantLists')
+            ->as('variantLists.')
+            ->group(function () {
+                Route::get('/index',           [AdminVariantListController::class, 'index'])->name('index');
+                Route::get('/create',          [AdminVariantListController::class, 'create'])->name('create');
+                Route::post('/store',          [AdminVariantListController::class, 'store'])->name('store');
+                Route::get('/show/{id}',       [AdminVariantListController::class, 'show'])->name('show');
+                Route::get('/{id}/edit',       [AdminVariantListController::class, 'edit'])->name('edit');
+                Route::put('/{id}/update',     [AdminVariantListController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [AdminVariantListController::class, 'destroy'])->name('destroy');
+            });
+        Route::prefix('variants')
+            ->as('variants.')
+            ->group(function () {
+                Route::get('/index',           [AdminVariantController::class, 'index'])->name('index');
+                Route::get('/create',          [AdminVariantController::class, 'create'])->name('create');
+                Route::post('/store',          [AdminVariantController::class, 'store'])->name('store');
+                Route::get('/show/{id}',       [AdminVariantController::class, 'show'])->name('show');
+                Route::get('/{id}/edit',       [AdminVariantController::class, 'edit'])->name('edit');
+                Route::put('/{id}/update',     [AdminVariantController::class, 'update'])->name('update');
+                Route::delete('/{id}/destroy', [AdminVariantController::class, 'destroy'])->name('destroy');
             });
     });
