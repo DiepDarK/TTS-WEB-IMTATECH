@@ -23,8 +23,8 @@
                             <div class="row">
                                 <div class="col-md-6 col-12 mb--20">
                                     <label>Name</label>
-                                    <input type="text" placeholder="Name" id="name" @error('name') is-invalid @enderror" name="name"
-                                    value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    <input type="text" placeholder="Name" id="name" class="form-control @error('name') is-invalid @enderror" name="name"
+                                    value="{{ old('name') }}"  autocomplete="name" autofocus>
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -33,8 +33,8 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label>Email Address*</label>
-                                    <input type="email" placeholder="Email Address" id="email" @error('email') is-invalid @enderror" name="email"
-                                    value="{{ old('email') }}" required autocomplete="email">
+                                    <input type="email" placeholder="Email Address" id="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                                    value="{{ old('email') }}"  autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -44,8 +44,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label>Password</label>
-                                    <input type="password" placeholder="Password" id="password" @error('password') is-invalid @enderror" name="password"
-                                    required autocomplete="new-password">
+                                    <input type="password" placeholder="Password" id="password" class="form-control @error('password') is-invalid @enderror" name="password"
+                                     autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -56,7 +56,7 @@
                                 <div class="col-md-6">
                                     <label>Confirm Password</label>
                                     <input type="password" placeholder="Confirm Password" id="password-confirm"
-                                    name="password_confirmation" required autocomplete="new-password">
+                                    name="password_confirmation"  autocomplete="new-password">
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="kenne-register_btn">Register</button>

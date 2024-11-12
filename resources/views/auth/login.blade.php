@@ -25,8 +25,8 @@
                                 <div class="col-md-12 col-12">
                                     <label>Email Address*</label>
                                     <input id="email" type="email" placeholder="Email Address"
-                                        @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"
-                                        required autocomplete="email" autofocus>
+                                        class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"
+                                         autocomplete="email" autofocus>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -35,8 +35,8 @@
                                 </div>
                                 <div class="col-12 mb--20">
                                     <label>Password*</label>
-                                    <input id="password" type="password" @error('password') is-invalid @enderror"
-                                        name="password" required autocomplete="current-password">
+                                    <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror"
+                                        name="password"  autocomplete="current-password">
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">

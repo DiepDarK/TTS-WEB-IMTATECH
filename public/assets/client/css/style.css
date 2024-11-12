@@ -5113,7 +5113,7 @@ i, .tab-content .tab-pane.active, .scroll-to-top i, .quantity .cart-plus-minus >
 
 .bg-1,
 .bg-2 {
-  background-image: url("../images/slider/1-1.jpg");
+  /* background-image: url("../images/slider/1-1.jpg"); */
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -5135,12 +5135,12 @@ i, .tab-content .tab-pane.active, .scroll-to-top i, .quantity .cart-plus-minus >
 }
 
 .bg-2 {
-  background-image: url("../images/slider/1-2.jpg");
+  /* background-image: url("../images/slider/1-2.jpg"); */
 }
 
 .bg-3,
 .bg-4 {
-  background-image: url("../images/slider/2-1.jpg");
+  /* background-image: url("../images/slider/2-1.jpg"); */
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -5162,12 +5162,12 @@ i, .tab-content .tab-pane.active, .scroll-to-top i, .quantity .cart-plus-minus >
 }
 
 .bg-4 {
-  background-image: url("../images/slider/2-2.jpg");
+  /* background-image: url("../images/slider/2-2.jpg"); */
 }
 
 .bg-5,
 .bg-6 {
-  background-image: url("../images/slider/1-1.jpg");
+  /* background-image: url("../images/slider/1-1.jpg"); */
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -5189,7 +5189,7 @@ i, .tab-content .tab-pane.active, .scroll-to-top i, .quantity .cart-plus-minus >
 }
 
 .bg-6 {
-  background-image: url("../images/slider/1-2.jpg");
+  /* background-image: url("../images/slider/1-2.jpg"); */
 }
 
 /* ---Slider Progress Bar--- */

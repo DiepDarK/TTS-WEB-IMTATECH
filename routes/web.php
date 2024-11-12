@@ -7,8 +7,10 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminBannerController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminVariantController;
+use App\Http\Controllers\Client\ClientIndexController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminVariantListController;
+use App\Http\Controllers\Client\ClentProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,12 +23,18 @@ use App\Http\Controllers\Admin\AdminVariantListController;
 |
 */
 
-Route::get('/', function () {
-    return view('clients.index');
-})->name('index');
-
+Route::get('/',               [ClientIndexController::class, 'index'])->name('index');
+Route::get('/shop',           [ClentProductController::class, 'index'])->name('shop');
+Route::get('/detail/{id}',    [ClientIndexController::class, 'detail'])->name('detail');
+// Route::get('/my-account', function () {
+//     return view('clients.my-account');
+// })->name('my-account');
+Route::get('/contact', function () { return view('clients.contact'); })->name('contact');
+Route::get('/about', function () { return view('clients.about'); })->name('about');
 Auth::routes();
-
+Route::get('/list-cart',         [CartController::class, 'listCart'] )->name('cart.list');
+Route::post('/add-cart',         [CartController::class, 'addCart'] )->name('cart.add');
+Route::post('/update-cart',      [CartController::class, 'updateCart'] )->name('cart.update');
 // Route Admin
 Route::middleware(['auth', 'auth.admin'])->prefix('admins')
     ->as('admins.')

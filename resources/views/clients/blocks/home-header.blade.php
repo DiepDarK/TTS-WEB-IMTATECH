@@ -13,8 +13,8 @@
                                 <div class="main-menu_area d-none d-lg-block">
                                     <nav class="main-nav d-flex justify-content-center">
                                         <ul>
-                                            <li><a href="">Home</a></li>
-                                            <li><a href="}">Shop</a></li>
+                                            <li><a href="{{route('index')}}">Home</a></li>
+                                            <li><a href="{{route('shop')}}">Shop</a></li>
                                             <li><a href="contact-us.html">Page</a></li>
                                             <li><a href="contact-us.html">Blog</a></li>
                                             <li><a href="">Contact Us</a></li>
@@ -513,8 +513,8 @@
                         <a href="#" class="btn-close"><i class="ion-android-close"></i></a>
                         <!-- Begin Offcanvas Search Area -->
                         <div class="offcanvas-search">
-                            <form action="#" class="hm-searchbox">
-                                <input type="text" placeholder="Search for item...">
+                            <form action="{{ route('shop') }}" class="hm-searchbox" method="GET">
+                                <input type="text" placeholder="Tìm kiếm sản phẩm ...">
                                 <button class="search_btn" type="submit"><i
                                         class="ion-ios-search-strong"></i></button>
                             </form>

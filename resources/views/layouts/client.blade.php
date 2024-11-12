@@ -57,9 +57,9 @@
             @include('clients.blocks.header')
         @endif
 
-        @if (url()->current() == url(''))
+        {{-- @if (url()->current() == url(''))
             @include('clients.blocks.slide')
-        @endif
+        @endif --}}
 
         @yield('content')
         <!-- Kenne's Instagram Area End Here -->

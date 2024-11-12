@@ -58,7 +58,7 @@
                                                     <img src="{{ Storage::url($item->image) }}" alt=""
                                                         width="150px">
                                                 </td>
-                                                <td>{{ $item->name }}</td>
+                                                <td style="width:20%">{{ $item->name }}</td>
                                                 <td>{{ $item->category->name }}</td>
                                                 <td>{{ number_format($item->price) }}đ</td>
                                                 <td>{{ $item->quantity }}</td>
