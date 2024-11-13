@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('cart_id');
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('variant_id')->nullable(); // Biến thể của sản phẩm nếu có
+            $table->string('name');
+            $table->string('image')->nullable();
+            $table->double('price', 8, 2); // Độ dài 8 với 2 chữ số thập phân
+            $table->unsignedInteger('quantity')->default(1);
+            $table->double('total')->default(0);
             $table->timestamps();
+            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
+            $table->foreign('variant_id')->references('id')->on('variants')->onDelete('set null');
         });
     }
 

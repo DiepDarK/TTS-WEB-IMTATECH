@@ -83,16 +83,16 @@
                                             </a>
                                         </li>
                                         <li class="minicart-wrap">
-                                            {{-- <a href="{{route('cart.list')}}" class="minicart-btn">
+                                            <a href="{{route('cart.list')}}" class="minicart-btn">
                                                 <div class="minicart-count_area">
-                                                    <span class="item-count">{{ session('cart') ? count(session('cart')) : '0'}}</span>
+                                                    <span class="item-count">{{ $cart && $cart->cartItems ? $cart->cartItems->count() : '0'}}</span>
                                                     <i class="ion-bag"></i>
                                                 </div>
                                                 <div class="minicart-front_text">
                                                     <span>Cart:</span>
+                                                    <span class="total-price">{{ $cart ? number_format($cart->total_price, 0, '', '.') : '0' }}đ</span>
                                                 </div>
-                                            </a> --}}
-                                            {{-- <span class="total-price">{{ number_format($subtotal, 0, '', '.') }}đ</span> --}}
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>

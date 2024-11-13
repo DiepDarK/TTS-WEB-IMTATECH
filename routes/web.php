@@ -3,14 +3,17 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminBannerController;
+use App\Http\Controllers\Client\ClientCartController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminVariantController;
+use App\Http\Controllers\Client\CilentOrderController;
 use App\Http\Controllers\Client\ClientIndexController;
 use App\Http\Controllers\Admin\AdminCategoryController;
-use App\Http\Controllers\Admin\AdminVariantListController;
 use App\Http\Controllers\Client\ClentProductController;
+use App\Http\Controllers\Admin\AdminVariantListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,9 +35,26 @@ Route::get('/detail/{id}',    [ClientIndexController::class, 'detail'])->name('d
 Route::get('/contact', function () { return view('clients.contact'); })->name('contact');
 Route::get('/about', function () { return view('clients.about'); })->name('about');
 Auth::routes();
-Route::get('/list-cart',         [CartController::class, 'listCart'] )->name('cart.list');
-Route::post('/add-cart',         [CartController::class, 'addCart'] )->name('cart.add');
-Route::post('/update-cart',      [CartController::class, 'updateCart'] )->name('cart.update');
+Route::middleware(['auth'])->prefix('cart')
+->as('cart.')
+->group(function () {
+    Route::get('/list',         [ClientCartController::class, 'listCart'] )->name('list');
+    Route::post('/add',         [ClientCartController::class, 'addCart'] )->name('add');
+    Route::post('/update',      [ClientCartController::class, 'updateCart'] )->name('update');
+    Route::post('/remove',      [ClientCartController::class, 'removeCart'] )->name('remove');
+});
+Route::middleware('auth')->prefix('orders')
+            ->as('orders.')
+            ->group(function () {
+                Route::get('/',                [CilentOrderController::class, 'index'])->name('index');
+                Route::get('/create',          [CilentOrderController::class, 'create'])->name('create');
+                Route::post('/store',          [CilentOrderController::class, 'store'])->name('store');
+                Route::get('/show/{id}',       [CilentOrderController::class, 'show'])->name('show');
+                Route::put('/{id}/update',     [CilentOrderController::class, 'update'])->name('update');
+            });
+Route::post('/payment/momo',        [PaymentController::class, 'createPayment'])->name('payment.momo');
+Route::get('/payment/momo-return',  [PaymentController::class, 'handleMomoReturn'])->name('payment.momo.return');
+
 // Route Admin
 Route::middleware(['auth', 'auth.admin'])->prefix('admins')
     ->as('admins.')

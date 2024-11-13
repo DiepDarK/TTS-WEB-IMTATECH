@@ -30,10 +30,9 @@
                                             </a>
                                         </li>
                                         <li class="minicart-wrap">
-                                            <a href="" class="minicart-btn">
+                                            <a href="{{route('cart.list')}}" class="minicart-btn">
                                                 <div class="minicart-count_area">
-                                                    <span
-                                                        class="item-count">{{ session('cart') ? count(session('cart')) : '0' }}</span>
+                                                    <span class="item-count">{{ $cart && $cart->cartItems ? $cart->cartItems->count() : '0'}}</span>
                                                     <i class="ion-bag"></i>
                                                 </div>
                                             </a>

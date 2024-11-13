@@ -80,10 +80,10 @@
                                 </ul>
                             </div>
                             <div class="price-box">
+                                {{-- <span
+                                    class="text-decoration-line-through">{{ number_format($product->price, 0, '', '.') }}đ</span><br> --}}
                                 <span
-                                    class="text-decoration-line-through">{{ number_format($product->price, 0, '', '.') }}đ</span><br>
-                                <span
-                                    class="text-danger fs-4 font-weight-bold">{{ number_format($product->sale_price, 0, '', '.') }}đ</span>
+                                    class="text-danger fs-4 font-weight-bold">{{ number_format($product->price, 0, '', '.') }}đ</span>
                             </div>
                             <div class="sp-essential_stuff">
                                 <ul>
@@ -142,12 +142,12 @@
                                         </div>
                                     </div>
                                     <div class="qty-btn_area">
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         <ul>
-                                            <li><button type="submit" class="qty-cart_btn" href="cart.html">Thêm vào giỏ
+                                            <li><button type="submit" class="qty-cart_btn">Thêm vào giỏ
                                                 hàng</button></li>
                                             </ul>
                                         </div>
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
                             </form>
                             <div class="kenne-social_link">
                                 <ul>
@@ -356,7 +356,7 @@
                                                 alt="Kenne's Product Image">
                                         </a>
                                         <span class="sticker">Sale</span>
-                                        <form action="{{ route('cart.add') }}" method="post">
+                                        <form action="{{ route('cart.add') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="quantity" value="1">
                                             <input type="hidden" name="product_id" value="{{$item->id}}">
@@ -376,9 +376,9 @@
                                             </h3>
                                             <div class="price-box">
                                                 <span
-                                                    class="new-price">{{ number_format($item->sale_price, 0, '', '.') }}</span>
-                                                <span
-                                                    class="old-price">{{ number_format($item->price, 0, '', '.') }}</span>
+                                                    class="new-price">{{ number_format($item->price, 0, '', '.') }}</span>
+                                                {{-- <span
+                                                    class="old-price">{{ number_format($item->price, 0, '', '.') }}</span> --}}
                                             </div>
                                             <div class="rating-box">
                                                 <ul>

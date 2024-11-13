@@ -165,8 +165,12 @@
                                         <span class="sticker-2">New</span>
                                         <div class="add-actions">
                                             <ul>
-                                                <li><a href="cart.html" data-bs-toggle="tooltip" data-placement="right"
-                                                        title="Add To cart"><i class="ion-bag"></i></a>
+                                                <li>
+                                                    <form action="" method="POST">
+                                                        
+                                                        <a data-bs-toggle="tooltip" data-placement="right"
+                                                            title="Add To cart"><i class="ion-bag"></i></a>
+                                                    </form>
                                                 </li>
                                             </ul>
                                         </div>

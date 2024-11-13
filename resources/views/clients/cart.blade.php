@@ -15,91 +15,100 @@
             @endif
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('cart.update') }}" method="POST">
-                        @csrf
-                        <div class="table-content table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="kenne-product-remove">Remove</th>
-                                        <th class="kenne-product-thumbnail">Images</th>
-                                        <th class="cart-product-name">Product</th>
-                                        <th class="kenne-product-price">Unit Price</th>
-                                        <th class="kenne-product-quantity">Quantity</th>
-                                        <th class="kenne-product-subtotal">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($cart as $key => $item)
+                    @if ($cart && $cart->items->count() > 0)
+                        <form action="{{ route('cart.update') }}" method="POST">
+                            @csrf
+                            <div class="table-content table-responsive">
+                                <table class="table">
+                                    <thead>
                                         <tr>
-                                            <td class="kenne-product-remove"><a href=""><i class="fa fa-trash"
-                                                        title="Remove"></i></a></td>
-                                            <td class="kenne-product-thumbnail"><a href="{{ route('detail', $key) }}"><img
-                                                        src="{{ Storage::url($item['image']) }}" style="max-width: 150px"
-                                                        alt="Uren's Cart Thumbnail">
-                                                    <input type="hidden" name="cart[{{ $key }}][image]"
-                                                        value="{{ $item['image'] }}">
-                                                </a></td>
-                                            <td class="kenne-product-name"><a
-                                                    href="{{ route('detail', $key) }}">{{ $item['name'] }}</a>
-                                                <input type="hidden" name="cart[{{ $key }}][name]"
-                                                    value="{{ $item['name'] }}">
-                                            </td>
-                                            <td class="kenne-product-price"><span
-                                                    class="amount">{{ number_format($item['price'], 0, '', '.') }}đ</span>
-                                                <input type="hidden" name="cart[{{ $key }}][price]"
-                                                    value="{{ $item['price'] }}">
-                                            </td>
-                                            <td class="quantity">
-                                                <label>Quantity</label>
-                                                <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box quantityInput"
-                                                        data-price="{{ $item['price'] }}" value="{{ $item['quantity'] }}"
-                                                        type="text" name="cart[{{ $key }}][quantity]">
-                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                </div>
-                                            </td>
-                                            <td class="product-subtotal"><span
-                                                    class="subtotal">{{ number_format($item['price'] * $item['quantity'], 0, '', '.') }}đ</span>
-                                            </td>
+                                            <th class="kenne-product-thumbnail">Images</th>
+                                            <th class="cart-product-name">Product</th>
+                                            <th class="kenne-product-price">Unit Price</th>
+                                            <th class="kenne-product-quantity">Quantity</th>
+                                            <th class="kenne-product-subtotal">Total</th>
+                                            <th class="kenne-product-remove">Remove</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="coupon-all">
-                                    <div class="coupon">
-                                        <input id="coupon_code" class="input-text" name="coupon_code" value=""
-                                            placeholder="Coupon code" type="text">
-                                        <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
-                                    </div>
-                                    <div class="coupon2">
-                                        <input class="button" name="update_cart" value="Update cart" type="submit">
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($cart->items as $item)
+                                            <tr>
+                                                <input type="hidden" name="id" value="{{ $item['id'] }}"
+                                                    id="">
+                                                <td class="kenne-product-thumbnail"><a
+                                                        href="{{ route('detail', $item->product_id) }}"><img
+                                                            src="{{ Storage::url($item['image']) }}"
+                                                            style="max-width: 150px" alt="Uren's Cart Thumbnail">
+                                                        <input type="hidden" name="image" value="{{ $item['img'] }}"
+                                                            id="">
+                                                    </a></td>
+                                                <td class="kenne-product-name"><a
+                                                        href="{{ route('detail', $item->product_id) }}">{{ $item['name'] }}</a>
+                                                    <input type="hidden" name="name" value="{{ $item['name'] }}"
+                                                        id="">
+                                                </td>
+                                                <td class="kenne-product-price"><span
+                                                        class="amount">{{ number_format($item['price'], 0, '', '.') }}đ</span>
+                                                    <input type="hidden" name="price" value="{{ $item['price'] }}"
+                                                        id="">
+                                                </td>
+                                                <td class="quantity">
+                                                    <div class="cart-plus-minus quantity-container">
+                                                        <input class="cart-plus-minus-box quantity-input"
+                                                            data-price="{{ $item['price'] }}"
+                                                            value="{{ $item['quantity'] }}" type="text"
+                                                            name="items[{{ $item['id'] }}][quantity]">
+                                                        <div class="dec qtybutton btn-minus"><i
+                                                                class="fa fa-angle-down"></i></div>
+                                                        <div class="inc qtybutton  btn-plus"><i class="fa fa-angle-up"></i>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="product-subtotal"><span
+                                                        class="subtotal">{{ number_format($item['price'] * $item['quantity'], 0, '', '.') }}Đ</span>
+                                                </td>
+                                                <td class="kenne-product-remove"
+                                                    data-item-id="{{ $item['id'] }}">
+                                                    <a href=""><i class="fa fa-trash" title="Remove"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="coupon-all">
+                                        <div class="coupon">
+                                            <input id="coupon_code" class="input-text" name="coupon_code" value=""
+                                                placeholder="Coupon code" type="text">
+                                            <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5 ml-auto">
-                                <div class="cart-page-total">
-                                    <h2>Cart totals</h2>
-                                    <ul>
-                                        <li>Subtotal <span
-                                                class="sub-total">{{ number_format($subtotal, 0, '', '.') }}đ</span>
-                                        </li>
-                                        <li>Shipping <span
-                                                class="shipping">{{ number_format($shipping, 0, '', '.') }}đ</span>
-                                        </li>
-                                        <li>Total <span class="total">{{ number_format($total, 0, '', '.') }}đ</span></li>
-                                    </ul>
-                                    <a href="{{ route('orders.create') }}">Proceed to checkout</a>
+                            <div class="row">
+                                <div class="col-md-5 ml-auto">
+                                    <div class="cart-page-total">
+                                        <h2>Cart totals</h2>
+                                        <ul>
+                                            <li>Subtotal <span
+                                                    class="sub-total">{{ number_format($subTotal, 0, '', '.') }}đ</span>
+                                            </li>
+                                            <li>Shipping <span
+                                                    class="shipping">{{ number_format($shipping, 0, '', '.') }}đ</span>
+                                            </li>
+                                            <li>Total <span class="total">{{ number_format($total, 0, '', '.') }}đ</span>
+                                            </li>
+                                        </ul>
+                                        <a href="{{ route('orders.create') }}">Proceed to checkout</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    @else
+                        <h3 style="text-align: center;color: rgb(222, 80, 80)">Giỏ hàng rỗng</h3>
+                    @endif
                 </div>
             </div>
         </div>
@@ -108,73 +117,154 @@
 @endsection
 @section('js')
     <script>
-        $('.cart-plus-minus').append(
-            '<div class="dec qtybutton"><i class="fa fa-angle-down"></i></div><div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>'
-        );
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quản lý tất cả các phần tử nhập số lượng
+            document.querySelectorAll('.quantity-container').forEach(function(container) {
+                const quantityInput = container.querySelector('.quantity-input');
+                const btnPlus = container.querySelector('.btn-plus');
+                const btnMinus = container.querySelector('.btn-minus');
 
-        //Hàm update giờ hàng
-        function updateTotal() {
-            var subtotal = 0;
-            //tính tiền của các sản phẩm có trong giỏ hàng
-            $('.quantityInput').each(function() {
-                var $input = $(this);
-                var price = parseFloat($input.data('price'));
-                var quantity = parseFloat($input.val());
-                subtotal += price * quantity;
-            })
+                btnPlus.addEventListener('click', function() {
+                    event.preventDefault();
+                    let currentValue = parseInt(quantityInput.value, 10);
+                    quantityInput.value = currentValue + 1;
+                    updateSubtotal(container);
+                    updateTotal();
 
-            // Lấy số tiền vận chuyển
-            var shipping = parseFloat($('.shipping').text().replace(/\./g, '').replace('đ', ''));
-            var total = subtotal + shipping;
+                    // Gửi yêu cầu AJAX để cập nhật số lượng sản phẩm
+                    updateCartAjax(); // Pass product ID and new quantity
+                });
+
+                btnMinus.addEventListener('click', function() {
+                    event.preventDefault();
+                    let currentValue = parseInt(quantityInput.value, 10);
+                    if (currentValue > 1) {
+                        quantityInput.value = currentValue - 1;
+                        updateSubtotal(container);
+                        updateTotal();
+
+                        // Gửi yêu cầu AJAX để cập nhật số lượng sản phẩm
+                        updateCartAjax(); // Pass product ID and new quantity
+                    }
+                });
+
+            });
+
+            function updateCartAjax() {
+                var formData = $('form').serialize();
+                console.log(formData);
+
+                $.ajax({
+                    url: '/cart/update', // Đường dẫn xử lý cập nhật giỏ hàng
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        // Thông báo cập nhật thành công
+                        console.log('Cart updated successfully');
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error:', xhr.responseText);
+                        // Xử lý lỗi khi cập nhật giỏ hàng
+                        alert('Error updating cart');
+                    }
+                });
+            }
+
+            function removeCartAjax(cartItemId) {
+                $.ajax({
+                    url: '/cart/remove',
+                    method: 'POST',
+                    data: {
+                        id: cartItemId, // Pass the cart item ID
+                        _token: '{{ csrf_token() }}' // Include CSRF token for security
+                    },
+                    success: function(response) {
+                        console.log('Product removed successfully:', response.message);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error:', xhr.responseText);
+                        alert('Error removing product');
+                    }
+                });
+            }
 
 
-            //Cập nhật giá trị
-            $('.sub-total').text(subtotal.toLocaleString('vi-VN') + 'đ');
-            $('.total').text(total.toLocaleString('vi-VN') + 'đ');
-        }
+            // Cập nhật subtotal cho từng sản phẩm
+            function updateSubtotal(container) {
+                const quantityInput = container.querySelector('.quantity-input');
+                const price = parseFloat(quantityInput.dataset.price);
+                const quantity = parseInt(quantityInput.value, 10);
+                const subtotal = price * quantity;
 
-        $('.qtybutton').on('click', function() {
-            var $button = $(this);
-            var $input = $button.parent().find('input');
-            var oldValue = parseFloat($input.val());
-            if ($button.hasClass('inc')) {
-                var newVal = oldValue + 1;
-            } else {
-                // Don't allow decrementing below zero
-                if (oldValue > 1) {
-                    var newVal = oldValue - 1;
-                } else {
-                    newVal = 1;
+                const subtotalElement = container.closest('tr').querySelector('.subtotal');
+                subtotalElement.textContent = formatCurrency(subtotal);
+            }
+
+            // Định dạng tiền tệ với dấu chấm phân tách hàng nghìn và không có phần thập phân
+            function formatCurrency(value) {
+                const formatted = value.toFixed(0); // Làm tròn xuống số nguyên
+                if (formatted.length > 3) {
+                    return formatted.replace(/\B(?=(\d{3})+(?!\d))/g, '.') +
+                        ' Đ'; // Thêm dấu chấm phân tách hàng nghìn
                 }
+                return formatted + ' $'; // Trả về giá trị cho các số dưới 1000
             }
-            $input.val(newVal);
 
-            //Cập nhật lại giá trị của Tổng giá của từng sản phẩm
-            var price = parseFloat($input.data('price'));
-            var subtotalElement = $input.closest('tr').find('.subtotal');
-            var newSubtotal = newVal * price;
-            subtotalElement.text(newSubtotal.toLocaleString('vi-VN') + 'đ');
+            // Xử lý khi người dùng nhập số âm
+            document.querySelectorAll('.quantity-input').forEach(function(input) {
+                input.addEventListener('change', function() {
+                    event.preventDefault();
+                    const value = parseInt(input.value, 10);
+                    if (isNaN(value) || value < 1) {
+                        alert('Quantity must be a number >= 1');
+                        input.value = 1;
+                    }
+                    updateSubtotal(input.closest('.quantity-container'));
+                    updateTotal();
+                    updateCartAjax();
+                });
+            });
+            // Xử lý xóa sản phẩm trong giỏ hàng
+            document.querySelectorAll('.kenne-product-remove').forEach(function(removeButton) {
+                removeButton.addEventListener('click', function(event) {
+                    event.preventDefault();
 
+                    const row = this.closest('tr');
+                    const cartItemId = this.getAttribute(
+                        'data-item-id'); // Get the ID of the item to remove
+
+                    // Remove the product from the UI
+                    row.remove();
+                    updateTotal();
+
+                    // Call the removeCartAjax function with the cart item ID
+                    removeCartAjax(cartItemId); // Pass the item ID to the function
+                });
+            });
+
+            // Hàm cập nhật tổng số
+            function updateTotal() {
+                let subTotal = 0;
+                // Tính tổng các sản phẩm có trong giỏ hàng
+                document.querySelectorAll('.quantity-input').forEach(function(input) {
+                    const price = parseFloat(input.dataset.price);
+                    const quantity = parseInt(input.value, 10);
+                    subTotal += price * quantity;
+                });
+
+                // Lấy số tiền vận chuyển
+                const shipping = parseFloat(document.querySelector('.shipping').textContent.replace(/\./g, '')
+                    .replace(' $', ''));
+                const total = subTotal + shipping;
+
+                // Cập nhật giá trị
+                document.querySelector('.sub-total').textContent = formatCurrency(subTotal);
+                document.querySelector('.total').textContent = formatCurrency(total);
+            }
+
+            // Cập nhật tổng số khi trang được tải
             updateTotal();
+
         });
-
-        // Xử lí nếu ng dùng nhập số âm
-        $('.quantityInput').on('change', function() {
-            var value = parseInt($(this).val(), 10);
-            if (isNaN(value) || value < 1) {
-                alert('Số lượng phải lớn hơn bằng 1');
-                $(this).val(1);
-            }
-            updateTotal();
-        })
-
-        //Xử lí xóa sản phẩm trong giỏ hàng\
-        $('.kenne-product-remove').on('click', function() {
-            event.preventDefault();
-            var $row = $(this).closest('tr');
-            $row.remove();
-            updateTotal();
-        })
-        updateTotal();
     </script>
 @endsection
