@@ -56,7 +56,7 @@
                             <p class="short-desc">Khám phá các sản phẩm chất lượng cao, thiết kế độc đáo để tôn lên phong
                                 cách của bạn. Nhanh tay nắm bắt ưu đãi hấp dẫn này ngay hôm nay!</p>
                             <div class="slide-btn">
-                                <a class="kenne-btn" href="shop-left-sidebar.html">Khám phá ngay</a>
+                                <a class="kenne-btn" href="{{route("shop")}}">Khám phá ngay</a>
                             </div>
                         </div>
                     </div>
@@ -155,57 +155,59 @@
                         ]'>
 
                         @foreach ($listProduct as $item)
-                            <div class="product-item">
-                                <div class="single-product">
-                                    <div class="product-img">
-                                        <a href="{{ route('detail', $item->id) }}">
-                                            <img class="primary-img" src="{{ Storage::url($item->image) }}"
-                                                alt="Kenne's Product Image">
-                                        </a>
-                                        <span class="sticker-2">New</span>
-                                        <div class="add-actions">
-                                            <ul>
-                                                <li>
-                                                    <form action="" method="POST">
-                                                        
-                                                        <a data-bs-toggle="tooltip" data-placement="right"
-                                                            title="Add To cart"><i class="ion-bag"></i></a>
-                                                    </form>
-                                                </li>
-                                            </ul>
-                                        </div>
+                        @if ($item->is_new)
+                        <div class="product-item">
+                            <div class="single-product">
+                                <div class="product-img">
+                                    <a href="{{ route('detail', $item->id) }}">
+                                        <img class="primary-img" src="{{ Storage::url($item->image) }}"
+                                            alt="Kenne's Product Image">
+                                    </a>
+                                    <span class="sticker-2">New</span>
+                                    <div class="add-actions">
+                                        <ul>
+                                            <li>
+                                                <form action="" method="POST">
+                                                    
+                                                    <a data-bs-toggle="tooltip" data-placement="right"
+                                                        title="Add To cart"><i class="ion-bag"></i></a>
+                                                </form>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="product-content">
-                                        <div class="product-desc_info">
-                                            <h3 class="product-name" style="height: 40px"><a
-                                                    href="{{ route('detail', $item->id) }}">{{ substr($item->name, 0, $longString) }}...</a>
-                                            </h3>
-                                            <div class="price-box">
-                                                <span class="new-price">{{ number_format($item->price, 0, '', '.') }}
-                                                    VNĐ</span>
-                                                {{-- <span
-                                                    class="old-price">{{ number_format($item->price, 0, '', '.') }}</span> --}}
-                                            </div>
-                                            <div class="rating-box">
-                                                <ul>
-                                                    <li><i class="ion-ios-star"></i></li>
-                                                    <li><i class="ion-ios-star"></i></li>
-                                                    <li><i class="ion-ios-star"></i></li>
-                                                    <li class="silver-color"><i class="ion-ios-star-half"></i></li>
-                                                    <li class="silver-color"><i class="ion-ios-star-outline"></i></li>
-                                                </ul>
-                                            </div>
+                                </div>
+                                <div class="product-content">
+                                    <div class="product-desc_info">
+                                        <h3 class="product-name" style="height: 40px"><a
+                                                href="{{ route('detail', $item->id) }}">{{ substr($item->name, 0, $longString) }}...</a>
+                                        </h3>
+                                        <div class="price-box">
+                                            <span class="new-price">{{ number_format($item->price, 0, '', '.') }}
+                                                VNĐ</span>
+                                            {{-- <span
+                                                class="old-price">{{ number_format($item->price, 0, '', '.') }}</span> --}}
+                                        </div>
+                                        <div class="rating-box">
+                                            <ul>
+                                                <li><i class="ion-ios-star"></i></li>
+                                                <li><i class="ion-ios-star"></i></li>
+                                                <li><i class="ion-ios-star"></i></li>
+                                                <li class="silver-color"><i class="ion-ios-star-half"></i></li>
+                                                <li class="silver-color"><i class="ion-ios-star-outline"></i></li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        @endif
                         @endforeach
                     </div>
                 </div>
             </div>
         </div>
         <div class="d-flex justify-content-center">
-            <button class="btn-all">Xem tất cả</button>
+            <a href="{{route("shop")}}"><button class="btn-all">Xem tất cả</button></a>
         </div>
     </div>
     <!-- Product Area End Here -->
@@ -244,50 +246,60 @@
                                     ]'>
 
                                 @foreach ($listProduct as $item)
-                                    <div class="product-item">
-                                        <div class="single-product">
-                                            <div class="product-img">
-                                                <a href="{{ route('detail', $item->id) }}">
-                                                    <img class="primary-img" src="{{ Storage::url($item->image) }}"
-                                                        alt="Kenne's Product Image">
-                                                </a>
-                                                <span class="sticker-2">Hot</span>
-                                                <div class="add-actions">
+                                @if ($item->is_hot)
+                                <div class="product-item">
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <a href="{{ route('detail', $item->id) }}">
+                                                <img class="primary-img" src="{{ Storage::url($item->image) }}"
+                                                    alt="Kenne's Product Image">
+                                            </a>
+                                            <span class="sticker-2">Hot</span>
+                                            <div class="add-actions">
+                                                <ul>
+                                                    <form action="{{ route('cart.add') }}" method="POST">
+                                                        @csrf
+                                                        <li>
+                                                            <input type="hidden" name="product_id"
+                                                                value="{{ $item->id }}">
+                                                                <input value="1" type="hidden" name='quantity'>
+                                                                <button type="submit" class="qty-cart_btn"><a
+                                                                            href="cart.html" data-bs-toggle="tooltip"
+                                                                            data-placement="right" title="Add To cart"><i
+                                                                                class="ion-bag"></i></a></button>
+                                                        </li>
+                                                    </form>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <div class="product-desc_info">
+                                                <h3 class="product-name" style="height: 40px"><a
+                                                        href="{{ route('detail', $item->id) }}">{{ substr($item->name, 0, $longString) }}...</a>
+                                                </h3>
+                                                <div class="price-box">
+                                                    <span
+                                                        class="new-price">{{ number_format($item->price, 0, '', '.') }}
+                                                        VNĐ</span>
+                                                    {{-- <span
+                                                        class="old-price">{{ number_format($item->price, 0, '', '.') }}</span> --}}
+                                                </div>
+                                                <div class="rating-box">
                                                     <ul>
-                                                        <li><a href="cart.html" data-bs-toggle="tooltip"
-                                                                data-placement="right" title="Add To cart"><i
-                                                                    class="ion-bag"></i></a>
+                                                        <li><i class="ion-ios-star"></i></li>
+                                                        <li><i class="ion-ios-star"></i></li>
+                                                        <li><i class="ion-ios-star"></i></li>
+                                                        <li class="silver-color"><i class="ion-ios-star-half"></i>
+                                                        </li>
+                                                        <li class="silver-color"><i class="ion-ios-star-outline"></i>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div class="product-content">
-                                                <div class="product-desc_info">
-                                                    <h3 class="product-name" style="height: 40px"><a
-                                                            href="{{ route('detail', $item->id) }}">{{ substr($item->name, 0, $longString) }}...</a>
-                                                    </h3>
-                                                    <div class="price-box">
-                                                        <span
-                                                            class="new-price">{{ number_format($item->price, 0, '', '.') }}
-                                                            VNĐ</span>
-                                                        {{-- <span
-                                                            class="old-price">{{ number_format($item->price, 0, '', '.') }}</span> --}}
-                                                    </div>
-                                                    <div class="rating-box">
-                                                        <ul>
-                                                            <li><i class="ion-ios-star"></i></li>
-                                                            <li><i class="ion-ios-star"></i></li>
-                                                            <li><i class="ion-ios-star"></i></li>
-                                                            <li class="silver-color"><i class="ion-ios-star-half"></i>
-                                                            </li>
-                                                            <li class="silver-color"><i class="ion-ios-star-outline"></i>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                                @endif
                                 @endforeach
 
                             </div>
@@ -295,7 +307,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button class="btn-all">Xem tất cả</button>
+                    <a href="{{route("shop")}}"><button class="btn-all">Xem tất cả</button></a>
                 </div>
             </div>
         </div>
@@ -356,50 +368,60 @@
                                                 ]'>
 
                                 @foreach ($listProduct as $item)
-                                    <div class="product-item">
-                                        <div class="single-product">
-                                            <div class="product-img">
-                                                <a href="{{ route('detail', $item->id) }}">
-                                                    <img class="primary-img" src="{{ Storage::url($item->image) }}"
-                                                        alt="Kenne's Product Image">
-                                                </a>
-                                                <span class="sticker">Sale</span>
-                                                <div class="add-actions">
+                                @if ($item->is_sale)
+                                <div class="product-item">
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <a href="{{ route('detail', $item->id) }}">
+                                                <img class="primary-img" src="{{ Storage::url($item->image) }}"
+                                                    alt="Kenne's Product Image">
+                                            </a>
+                                            <span class="sticker">Sale</span>
+                                            <div class="add-actions">
+                                                <ul>
+                                                    <form action="{{ route('cart.add') }}" method="POST">
+                                                        @csrf
+                                                        <li>
+                                                            <input type="hidden" name="product_id"
+                                                                value="{{ $item->id }}">
+                                                                <input value="1" type="hidden" name='quantity'>
+                                                                <button type="submit" class="qty-cart_btn"><a
+                                                                            href="cart.html" data-bs-toggle="tooltip"
+                                                                            data-placement="right" title="Add To cart"><i
+                                                                                class="ion-bag"></i></a></button>
+                                                        </li>
+                                                    </form>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <div class="product-desc_info">
+                                                <h3 class="product-name" style="height: 40px"><a
+                                                        href="{{ route('detail', $item->id) }}">{{ substr($item->name, 0, $longString) }}...</a>
+                                                </h3>
+                                                <div class="price-box">
+                                                    <span
+                                                        class="new-price">{{ number_format($item->price, 0, '', '.') }}
+                                                        VNĐ</span>
+                                                    {{-- <span
+                                                        class="old-price">{{ number_format($item->price, 0, '', '.') }}</span> --}}
+                                                </div>
+                                                <div class="rating-box">
                                                     <ul>
-                                                        <li><a href="cart.html" data-bs-toggle="tooltip"
-                                                                data-placement="right" title="Add To cart"><i
-                                                                    class="ion-bag"></i></a>
+                                                        <li><i class="ion-ios-star"></i></li>
+                                                        <li><i class="ion-ios-star"></i></li>
+                                                        <li><i class="ion-ios-star"></i></li>
+                                                        <li class="silver-color"><i class="ion-ios-star-half"></i>
+                                                        </li>
+                                                        <li class="silver-color"><i class="ion-ios-star-outline"></i>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div class="product-content">
-                                                <div class="product-desc_info">
-                                                    <h3 class="product-name" style="height: 40px"><a
-                                                            href="{{ route('detail', $item->id) }}">{{ substr($item->name, 0, $longString) }}...</a>
-                                                    </h3>
-                                                    <div class="price-box">
-                                                        <span
-                                                            class="new-price">{{ number_format($item->price, 0, '', '.') }}
-                                                            VNĐ</span>
-                                                        {{-- <span
-                                                            class="old-price">{{ number_format($item->price, 0, '', '.') }}</span> --}}
-                                                    </div>
-                                                    <div class="rating-box">
-                                                        <ul>
-                                                            <li><i class="ion-ios-star"></i></li>
-                                                            <li><i class="ion-ios-star"></i></li>
-                                                            <li><i class="ion-ios-star"></i></li>
-                                                            <li class="silver-color"><i class="ion-ios-star-half"></i>
-                                                            </li>
-                                                            <li class="silver-color"><i class="ion-ios-star-outline"></i>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                                @endif
                                 @endforeach
 
                             </div>
@@ -407,7 +429,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button class="btn-all">Xem tất cả</button>
+                    <a href="{{route("shop")}}"><button class="btn-all">Xem tất cả</button></a>
                 </div>
             </div>
         </div>
@@ -448,51 +470,61 @@
                                     ]'>
 
                                 @foreach ($listProduct as $item)
-                                    <div class="product-item">
-                                        <div class="single-product">
-                                            <div class="product-img">
-                                                <a href="{{ route('detail', $item->id) }}">
-                                                    <img class="primary-img" src="{{ Storage::url($item->image) }}"
-                                                        alt="Kenne's Product Image">
-                                                </a>
-                                                <span class="sticker-2">
-                                                    Favourite</span>
-                                                <div class="add-actions">
+                                @if ($item->is_show_home)
+                                <div class="product-item">
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <a href="{{ route('detail', $item->id) }}">
+                                                <img class="primary-img" src="{{ Storage::url($item->image) }}"
+                                                    alt="Kenne's Product Image">
+                                            </a>
+                                            <span class="sticker-2">
+                                                Favourite</span>
+                                            <div class="add-actions">
+                                                <ul>
+                                                    <form action="{{ route('cart.add') }}" method="POST">
+                                                        @csrf
+                                                        <li>
+                                                            <input type="hidden" name="product_id"
+                                                                value="{{ $item->id }}">
+                                                                <input value="1" type="hidden" name='quantity'>
+                                                                <button type="submit" class="qty-cart_btn"><a
+                                                                            href="cart.html" data-bs-toggle="tooltip"
+                                                                            data-placement="right" title="Add To cart"><i
+                                                                                class="ion-bag"></i></a></button>
+                                                        </li>
+                                                    </form>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <div class="product-desc_info">
+                                                <h3 class="product-name" style="height: 40px"><a
+                                                        href="{{ route('detail', $item->id) }}">{{ substr($item->name, 0, $longString) }}...</a>
+                                                </h3>
+                                                <div class="price-box">
+                                                    <span
+                                                        class="new-price">{{ number_format($item->price, 0, '', '.') }}
+                                                        VNĐ</span>
+                                                    {{-- <span
+                                                        class="old-price">{{ number_format($item->price, 0, '', '.') }}</span> --}}
+                                                </div>
+                                                <div class="rating-box">
                                                     <ul>
-                                                        <li><a href="cart.html" data-bs-toggle="tooltip"
-                                                                data-placement="right" title="Add To cart"><i
-                                                                    class="ion-bag"></i></a>
+                                                        <li><i class="ion-ios-star"></i></li>
+                                                        <li><i class="ion-ios-star"></i></li>
+                                                        <li><i class="ion-ios-star"></i></li>
+                                                        <li class="silver-color"><i class="ion-ios-star-half"></i>
+                                                        </li>
+                                                        <li class="silver-color"><i class="ion-ios-star-outline"></i>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div class="product-content">
-                                                <div class="product-desc_info">
-                                                    <h3 class="product-name" style="height: 40px"><a
-                                                            href="{{ route('detail', $item->id) }}">{{ substr($item->name, 0, $longString) }}...</a>
-                                                    </h3>
-                                                    <div class="price-box">
-                                                        <span
-                                                            class="new-price">{{ number_format($item->price, 0, '', '.') }}
-                                                            VNĐ</span>
-                                                        {{-- <span
-                                                            class="old-price">{{ number_format($item->price, 0, '', '.') }}</span> --}}
-                                                    </div>
-                                                    <div class="rating-box">
-                                                        <ul>
-                                                            <li><i class="ion-ios-star"></i></li>
-                                                            <li><i class="ion-ios-star"></i></li>
-                                                            <li><i class="ion-ios-star"></i></li>
-                                                            <li class="silver-color"><i class="ion-ios-star-half"></i>
-                                                            </li>
-                                                            <li class="silver-color"><i class="ion-ios-star-outline"></i>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                                @endif
                                 @endforeach
 
                             </div>
@@ -500,7 +532,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button class="btn-all">Xem tất cả</button>
+                    <a href="{{route("shop")}}"><button class="btn-all">Xem tất cả</button></a>
                 </div>
             </div>
         </div>

@@ -65,13 +65,13 @@
                                 </a>
                             </li>
                             <li>
-                                <a class='tp-link' href='{{route('admins.dashboard')}}'>
+                                <a class='tp-link' href='{{route('admins.orders.index')}}'>
                                     <i data-feather="shopping-bag"></i>
                                     <span> Đơn hàng </span>
                                 </a>
                             </li>
                             <li>
-                                <a class='tp-link' href='{{route('admins.dashboard')}}'>
+                                <a class='tp-link' href='#'>
                                     <i data-feather="message-square"></i>
                                     <span> Bình luận  </span>
                                 </a>

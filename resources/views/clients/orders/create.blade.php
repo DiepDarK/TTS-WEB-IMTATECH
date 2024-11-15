@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.client')
 @section('css')
 @endsection
 @section('content')
@@ -7,6 +7,12 @@
     <!-- Begin Kenne's Checkout Area -->
     <div class="checkout-area">
         <div class="container">
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <form action="{{ route('orders.store')}}" method="POST">
                 @csrf
                 <div class="row">
@@ -79,11 +85,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($cart as $key => $item)
+                                        @foreach ($carts->items as $item)
                                             <tr class="cart_item">
-                                                <td class="cart-product-name"> {{ $item['name'] }}<strong
+                                                <td class="cart-product-name"> {{ $item["name"] }}<strong
                                                         class="product-quantity">
-                                                        × {{ $item['quantity'] }}đ</strong></td>
+                                                        × {{ $item['quantity'] }}</strong></td>
                                                 <td class="cart-product-total text-center"><span
                                                         class="amount">{{ number_format($item['price'] * $item['quantity'], 0, '', '.') }}đ</span>
                                                 </td>
@@ -133,8 +139,8 @@
                                         </div>
                                     </div>
                                     <div class="order-button-payment">
-                                        <button type="submit" name="cod">Thanh toán COD</button>
-                                        <button type="submit" name="momo">Thanh toán MOMO</button>
+                                        <button type="submit" name="payment_method" value="cod" formaction="{{ route('orders.store') }}">Thanh toán COD</button>
+                                        {{-- <button type="submit" name="payment_method" value="momo" formaction="{{ route('payment.momo') }}">Thanh toán MOMO</button> --}}
                                     </div>
                                 </div>
                             </div>

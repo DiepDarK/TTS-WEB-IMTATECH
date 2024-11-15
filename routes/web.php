@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminVariantController;
 use App\Http\Controllers\Client\CilentOrderController;
 use App\Http\Controllers\Client\ClientIndexController;
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Client\ClentProductController;
 use App\Http\Controllers\Admin\AdminVariantListController;
 
@@ -32,27 +33,31 @@ Route::get('/detail/{id}',    [ClientIndexController::class, 'detail'])->name('d
 // Route::get('/my-account', function () {
 //     return view('clients.my-account');
 // })->name('my-account');
-Route::get('/contact', function () { return view('clients.contact'); })->name('contact');
-Route::get('/about', function () { return view('clients.about'); })->name('about');
+Route::get('/contact', function () {
+    return view('clients.contact');
+})->name('contact');
+Route::get('/about', function () {
+    return view('clients.about');
+})->name('about');
 Auth::routes();
 Route::middleware(['auth'])->prefix('cart')
-->as('cart.')
-->group(function () {
-    Route::get('/list',         [ClientCartController::class, 'listCart'] )->name('list');
-    Route::post('/add',         [ClientCartController::class, 'addCart'] )->name('add');
-    Route::post('/update',      [ClientCartController::class, 'updateCart'] )->name('update');
-    Route::post('/remove',      [ClientCartController::class, 'removeCart'] )->name('remove');
-});
-Route::middleware('auth')->prefix('orders')
-            ->as('orders.')
-            ->group(function () {
-                Route::get('/',                [CilentOrderController::class, 'index'])->name('index');
-                Route::get('/create',          [CilentOrderController::class, 'create'])->name('create');
-                Route::post('/store',          [CilentOrderController::class, 'store'])->name('store');
-                Route::get('/show/{id}',       [CilentOrderController::class, 'show'])->name('show');
-                Route::put('/{id}/update',     [CilentOrderController::class, 'update'])->name('update');
-            });
-Route::post('/payment/momo',        [PaymentController::class, 'createPayment'])->name('payment.momo');
+    ->as('cart.')
+    ->group(function () {
+        Route::get('/list',         [ClientCartController::class, 'listCart'])->name('list');
+        Route::post('/add',         [ClientCartController::class, 'addCart'])->name('add');
+        Route::post('/update',      [ClientCartController::class, 'updateCart'])->name('update');
+        Route::post('/remove',      [ClientCartController::class, 'removeCart'])->name('remove');
+    });
+Route::middleware(['auth'])->prefix('orders')
+    ->as('orders.')
+    ->group(function () {
+        Route::get('/',                [CilentOrderController::class, 'index'])->name('index');
+        Route::get('/create',          [CilentOrderController::class, 'create'])->name('create');
+        Route::post('/store',          [CilentOrderController::class, 'store'])->name('store');
+        Route::get('/show/{id}',       [CilentOrderController::class, 'show'])->name('show');
+        Route::put('/{id}/update',     [CilentOrderController::class, 'update'])->name('update');
+    });
+Route::post('/payment/momo',        [PaymentController::class, 'createMomoPayment'])->name('payment.momo');
 Route::get('/payment/momo-return',  [PaymentController::class, 'handleMomoReturn'])->name('payment.momo.return');
 
 // Route Admin
@@ -127,5 +132,13 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admins')
                 Route::get('/{id}/edit',       [AdminVariantController::class, 'edit'])->name('edit');
                 Route::put('/{id}/update',     [AdminVariantController::class, 'update'])->name('update');
                 Route::delete('/{id}/destroy', [AdminVariantController::class, 'destroy'])->name('destroy');
+            });
+        Route::prefix('orders')
+            ->as('orders.')
+            ->group(function () {
+                Route::get('/index',           [AdminOrderController::class, 'index'])->name('index');
+                Route::get('/show/{id}',       [AdminOrderController::class, 'show'])->name('show');
+                Route::put('/{id}/update',     [AdminOrderController::class, 'update'])->name('update');
+                Route::delete('{id}/destroy',  [AdminOrderController::class, 'destroy'])->name('destroy');
             });
     });

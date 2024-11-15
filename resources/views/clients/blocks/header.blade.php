@@ -65,7 +65,7 @@
                         <div class="col-lg-12">
                             <div class="header-middle_nav">
                                 <div class="header-logo_area">
-                                    {{-- <a href="{{ route('index') }}"> --}}
+                                    <a href="{{ route('index') }}">
                                     <img src="{{ asset('assets/client/images/menu/logo/1.png') }}" alt="Header Logo">
                                     </a>
                                 </div>
@@ -82,18 +82,20 @@
                                                 <i class="ion-android-menu"></i>
                                             </a>
                                         </li>
-                                        <li class="minicart-wrap">
-                                            <a href="{{route('cart.list')}}" class="minicart-btn">
-                                                <div class="minicart-count_area">
-                                                    <span class="item-count">{{ $cart && $cart->cartItems ? $cart->cartItems->count() : '0'}}</span>
-                                                    <i class="ion-bag"></i>
-                                                </div>
-                                                <div class="minicart-front_text">
-                                                    <span>Cart:</span>
-                                                    <span class="total-price">{{ $cart ? number_format($cart->total_price, 0, '', '.') : '0' }}đ</span>
-                                                </div>
-                                            </a>
-                                        </li>
+                                        @if (url()->current() == url('/login') || url()->current() == url('/register')|| url()->current() == url('/orders') || url()->current() == url('/orders'))
+                                        @else
+                                            <li class="minicart-wrap">
+                                                <a href="{{ route('cart.list') }}" class="minicart-btn">
+                                                    <div class="minicart-count_area">
+                                                        <span
+                                                            class="item-count">{{$carts && $carts->items ? $carts->items->count() : 0;
+ }}</span>
+                                                        <i class="ion-bag"></i>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        @endif
+
                                     </ul>
                                 </div>
                                 <div class="header-right_area header-right_area-2 d-inline-block d-lg-none">
@@ -140,8 +142,8 @@
                                         <li><a href="{{ route('shop') }}">Shop</a></li>
                                         <li><a href="contact-us.html">Page</a></li>
                                         <li><a href="contact-us.html">Blog</a></li>
-                                        {{-- <li><a href="{{route('contact')}}">Contact Us</a></li>
-                                        <li><a href="{{route('about')}}">About Us</a></li> --}}
+                                        <li><a href="#">Contact Us</a></li>
+                                        <li><a href="#">About Us</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -158,7 +160,7 @@
                                 <div class="row align-items-center justify-content-between">
                                     <div class="col-lg-2 col-sm-6">
                                         <div class="header-logo_area">
-                                            <a href="index.html">
+                                            <a href="{{ route('index') }}">
                                                 <img src="{{ asset('assets/client/images/menu/logo/1.png') }}"
                                                     alt="Header Logo">
                                             </a>
@@ -172,8 +174,8 @@
                                                     <li><a href="{{ route('shop') }}">Shop</a></li>
                                                     <li><a href="contact-us.html">Page</a></li>
                                                     <li><a href="contact-us.html">Blog</a></li>
-                                                    {{-- <li><a href="{{ route('contact') }}">Contact Us</a></li>
-                                            <li><a href="{{ route('about') }}">About Us</a></li> --}}
+                                                    <li><a href="#">Contact Us</a></li>
+                                                    <li><a href="#">About Us</a></li>
                                                 </ul>
                                             </nav>
                                         </div>
@@ -187,14 +189,19 @@
                                                         <i class="ion-android-menu"></i>
                                                     </a>
                                                 </li>
-                                                <li class="minicart-wrap">
-                                                    {{-- <a href="{{route('cart.list')}}" class="minicart-btn">
-                                                        <div class="minicart-count_area">
-                                                            <span class="item-count">{{ session('cart') ? count(session('cart')) : '0'}}</span>
-                                                            <i class="ion-bag"></i>
-                                                        </div>
-                                                    </a> --}}
-                                                </li>
+                                                @if (url()->current() == url('/login') || url()->current() == url('/register')|| url()->current() == url('/orders'))
+                                                @else
+                                                    <li class="minicart-wrap">
+                                                        <a href="{{ route('cart.list') }}" class="minicart-btn">
+                                                            <div class="minicart-count_area">
+                                                                <span
+                                                                    class="item-count">{{$carts && $carts->items ? $carts->items->count() : 0;
+ }}</span>
+                                                                <i class="ion-bag"></i>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                @endif
                                                 <li>
                                                     <a href="#searchBar" class="search-btn toolbar-btn">
                                                         <i class="ion-ios-search"></i>

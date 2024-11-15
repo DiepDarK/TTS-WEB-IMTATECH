@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class AdminBannerController extends Controller
 {
@@ -80,6 +81,11 @@ class AdminBannerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Banner::query()->findOrFail($id);
+        if ($product->image && Storage::disk('public')->exists($product->image)) {
+            Storage::disk('public')->delete($product->image);
+        }
+        $product->delete();
+        return redirect()->route('admins.banners.index')->with('success', 'Xóa sản phẩm thành công');
     }
 }

@@ -41,7 +41,7 @@
                                     @endforeach
                                 </ul>
                             </div>
-                            
+
                         </div>
                         <div class="kenne-sidebar_categories">
                             <div class="kenne-categories_title">
@@ -91,7 +91,8 @@
                             <div class="product-short">
                                 <label class="select-label">Short By:</label>
                                 <form method="GET" action="{{ route('shop') }}" id="sortForm">
-                                    <select name="sort" class="nice-select myniceselect" onchange="document.getElementById('sortForm').submit()">
+                                    <select name="sort" class="nice-select myniceselect"
+                                        onchange="document.getElementById('sortForm').submit()">
                                         <option value="">Default sorting</option>
                                         <option value="name_asc">Name, A to Z</option>
                                         <option value="name_desc">Name, Z to A</option>
@@ -116,7 +117,7 @@
                                                 <img class="primary-img" src="{{ Storage::url($item->image) }}"
                                                     alt="Kenne's Product Image">
                                             </a>
-                                            <span class="sticker"></span>
+                                            <span class="sticker">HOT - Sale - New</span>
                                             <div class="add-actions">
                                                 <ul>
                                                     <li class="quick-view-btn" data-bs-toggle="modal"
@@ -132,15 +133,24 @@
                                                             data-placement="right" title="Add To Compare"><i
                                                                 class="ion-ios-reload"></i></a>
                                                     </li>
-                                                    <li><a href="cart.html" data-bs-toggle="tooltip" data-placement="right"
-                                                            title="Add To cart"><i class="ion-bag"></i></a>
-                                                    </li>
+                                                    <form action="{{ route('cart.add') }}" method="POST">
+                                                        @csrf
+                                                        <li>
+                                                            <input type="hidden" name="product_id"
+                                                                value="{{ $item->id }}">
+                                                                <input value="1" type="hidden" name='quantity'>
+                                                                <button type="submit" class="qty-cart_btn"><a
+                                                                            href="cart.html" data-bs-toggle="tooltip"
+                                                                            data-placement="right" title="Add To cart"><i
+                                                                                class="ion-bag"></i></a></button>
+                                                        </li>
+                                                    </form>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="product-content">
                                             <div class="product-desc_info">
-                                                <h3 class="product-name"><a
+                                                <h3 class="product-name" style="height: 40px"><a
                                                         href="{{ route('detail', $item->id) }}">{{ substr($item->name, 0) }}...</a>
                                                 </h3>
                                                 <div class="price-box">
@@ -173,10 +183,10 @@
                                         <div class="product-content">
                                             <div class="product-desc_info">
                                                 <div class="price-box">
-                                                    <span
-                                                        class="new-price">{{ number_format($item->sale_price, 0, '', '.') }}</span>
-                                                    <span
-                                                        class="old-price">{{ number_format($item->price, 0, '', '.') }}</span>
+                                                    <span class="new-price">{{ number_format($item->price, 0, '', '.') }}
+                                                        VNĐ</span>
+                                                    {{-- <span
+                                                    class="old-price">{{ number_format($item->price, 0, '', '.') }}</span> --}}
                                                 </div>
                                                 <h6 class="product-name"><a
                                                         href="{{ route('detail', $item->id) }}">{{ $item->name }}</a>

@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.client')
 
 @section('content')
         <!-- Kenne's Breadcrumb Area End Here -->

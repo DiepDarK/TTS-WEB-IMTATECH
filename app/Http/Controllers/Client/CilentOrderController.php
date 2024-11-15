@@ -18,6 +18,7 @@ class CilentOrderController extends Controller
 {
     public function index()
     {
+        $carts = Cart::where('user_id', Auth::id())->with("items.product", "items.variant")->first();
         $orders = Auth::user()->order;
         $status_order = Order::STATUS_ORDER;
 
@@ -55,45 +56,54 @@ class CilentOrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        // dd($request->all());
-        // dd(session('cart'));
         if ($request->isMethod('POST')) {
-            DB::beginTransaction();
+            DB::beginTransaction(); //bat dau thao tac vs csdl
             try {
-
+                // Lấy dữ liệu từ request
                 $params = $request->except('_token');
-                $params['order_code'] =  $this->generateUniqueOrderCode();
+                $params['order_code'] = $this->generateUniqueOrderCode();
                 $order = Order::query()->create($params);
                 $orderId = $order->id;
-                $carts = session()->get('cart', []);
-                foreach ($carts as $key => $item) {
-                    $product = Product::query()->findOrFail($key);
-                    if ($product->quantity < $item['quantity']) {
+                
+                $carts = Cart::where('user_id', Auth::id())->with('items')->first();
+                if (!$carts || $carts->items->isEmpty()) {
+                    return redirect()->route('cart.list')->with('error', 'Your cart is empty');
+                }
+                // dd($order, $carts, $params);
+                
+                foreach ($carts->items as $item) {
+                    // dd($item,$orderId."da");
+                    // Kiểm tra số lượng tồn kho trước khi tạo đơn hàng
+                    $product = Product::findOrFail($item->product_id);
+                    if ($product->quantity < $item->quantity) {
                         DB::rollBack();
-                        return redirect()->route('cart.list')->with('error', 'Có sản phẩm vượt quá số lượng');
+                        return redirect()->route('cart.list')->with('error', 'Not enough stock for product ' . $product->name);
                     }
-
-                    $into_money = $item['price'] * $item['quantity'];
+                    // Tạo chi tiết đơn hàng
+                    $tt = $item->price * $item->quantity;
                     $order->orderDetail()->create([
-                        'order_id' => $orderId,
-                        'product_id' => $key,
-                        'unit_price' => $item['price'],
-                        'quantity' => $item['quantity'],
-                        'into_money' => $into_money
+                        'order_id' => $order->id,
+                        'product_id' => $item->product_id,
+                        'unit_price' => $item->price,
+                        'quantity' => $item->quantity,
+                        'into_money' => $tt
                     ]);
-                    $product->quantity -= $item['quantity'];
+                    // Giảm số lượng sản phẩm trong kho
+                    $product->quantity -= $item->quantity;
                     $product->save();
                 }
+                
                 DB::commit();
-
+                // dd($request->method(), $request->all());
+                
+                
                 // Trừ đi số lượng sản phẩm
-
 
                 //Gửi mail khi đặt hàng thành công
                 Mail::to($order->email_P)->queue(new OrderConfirm($order));
 
 
-                session()->put('cart', []);
+                $carts->items()->delete();
                 return redirect()->route('orders.index')->with('success', 'Đặt hàng thành công !');
             } catch (\Exception $e) {
                 DB::rollBack();
@@ -107,11 +117,12 @@ class CilentOrderController extends Controller
      */
     public function show(string $id)
     {
+        $carts = Cart::where('user_id', Auth::id())->with("items.product", "items.variant")->first();
         $order = Order::query()->findOrFail($id);
         $status_order = Order::STATUS_ORDER;
         $status_pay = Order::STATUS_PAY;
 
-        return view('clients.orders.show', compact('order', 'status_order', 'status_pay'));
+        return view('clients.orders.show', compact('order', 'status_order', 'status_pay','carts'));
     }
 
     /**

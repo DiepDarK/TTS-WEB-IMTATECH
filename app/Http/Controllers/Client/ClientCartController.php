@@ -16,11 +16,7 @@ class ClientCartController extends Controller
     {
         $categories = Category::orderBy('name', 'asc')->get();
         $orderCount = 0; // Mặc định nếu chưa đăng nhập
-        if (Auth::check()) {
-            $user = Auth::user();
-            $orderCount = $user->order()->count(); // Nếu đăng nhập thì lấy số lượng đơn hàng
-        }
-        $cart = Cart::where('user_id', Auth::id())->with("items.product", "items.variant")->first();
+        $carts = Cart::where('user_id', Auth::id())->with("items.product", "items.variant")->first();
         // $cart = session()->get('cart', default: []);
 
         // $tt = $cart['price'] - (($cart['price']  * $cart['discount']) / 100);
@@ -28,8 +24,8 @@ class ClientCartController extends Controller
         $total = 0;
         $subTotal = 0;
         $shipping = 50;
-        if ($cart && $cart->items->count() > 0) {
-            foreach ($cart->items as  $item) {
+        if ($carts && $carts->items->count() > 0) {
+            foreach ($carts->items as  $item) {
                 $price = is_numeric($item['price']) ? $item['price'] : 0;
                 $quantity = is_numeric($item['quantity']) ? $item['quantity'] : 0;
                 // Kiểm tra nếu các khóa cần thiết tồn tại trong mục giỏ hàng
@@ -39,7 +35,7 @@ class ClientCartController extends Controller
             $total = $subTotal + $shipping;
         }
 
-        return view('clients.cart', compact('orderCount', 'categories', 'cart', 'subTotal', 'shipping', 'total'));
+        return view('clients.cart', compact('orderCount', 'categories', 'carts', 'subTotal', 'shipping', 'total'));
     }
     public function addCart(Request $request)
     {

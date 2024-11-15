@@ -15,7 +15,7 @@
             @endif
             <div class="row">
                 <div class="col-12">
-                    @if ($cart && $cart->items->count() > 0)
+                    @if ($carts && $carts->items->count() > 0)
                         <form action="{{ route('cart.update') }}" method="POST">
                             @csrf
                             <div class="table-content table-responsive">
@@ -31,7 +31,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($cart->items as $item)
+                                        @foreach ($carts->items as $item)
                                             <tr>
                                                 <input type="hidden" name="id" value="{{ $item['id'] }}"
                                                     id="">

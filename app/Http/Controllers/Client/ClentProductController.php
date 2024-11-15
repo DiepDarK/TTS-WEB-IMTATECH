@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ClentProductController extends Controller
 {
     public function index(Request $request)
     {
         // Khởi tạo query cơ bản lấy tất cả sản phẩm
+        $carts = Cart::where('user_id', Auth::id())->with("items.product", "items.variant")->first();
         $query = Product::query();
         $listCategory = Category::query()->get();
 
@@ -69,6 +72,6 @@ class ClentProductController extends Controller
         // Phân trang với số lượng sản phẩm mỗi trang
         $products = $query->paginate(12);
 
-        return view('clients.shop', compact('products', 'listCategory'));
+        return view('clients.shop', compact('products', 'listCategory','carts'));
     }
 }
